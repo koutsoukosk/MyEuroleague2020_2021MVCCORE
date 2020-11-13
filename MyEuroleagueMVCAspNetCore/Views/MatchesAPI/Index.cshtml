@@ -1,0 +1,82 @@
+﻿@model IEnumerable<MyEuroleagueMVCAspNetCore.Models.Matches>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@using (Html.BeginForm("Index", "MatchesAPI", FormMethod.Post))
+{
+    <p></p>
+    <div>
+        Search by Round: @Html.TextBox("searchRound")
+        <input id="Submit1" type="submit" value="Filter" />
+    </div>
+}
+<p></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RoundNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Home_Team)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Away_Team)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HomePointsScored)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AwayPointsScored)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HadExtraTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndOfFourthPeriodPoints)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoundNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Home_Team)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Away_Team)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HomePointsScored)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AwayPointsScored)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HadExtraTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndOfFourthPeriodPoints)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MatchID">Edit</a>|
+                    <a asp-action="Details" asp-route-id="@item.MatchID">Details</a>|
+                    <a asp-action="Delete" asp-route-id="@item.MatchID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
