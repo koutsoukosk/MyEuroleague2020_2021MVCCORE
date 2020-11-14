@@ -50,8 +50,8 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
         public IActionResult Create()
         {
             var list = new List<TeamUser>();
-            var playerNames = _context.Team.OrderBy(y => y.Name).Select(x => x.Name).ToList();
-            foreach (var item in playerNames)
+            var teamNames = _context.Team.OrderBy(y => y.Name).Select(x => x.Name).ToList();
+            foreach (var item in teamNames)
             {
                 list.Add(new TeamUser
                 {
@@ -93,7 +93,27 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
             {
                 return NotFound();
             }
-            return View(matches);
+            var list = new List<TeamUser>();
+            var teamNamesEdit = _context.Team.OrderBy(y => y.Name).Select(x => x.Name).ToList();
+            foreach (var item in teamNamesEdit)
+            {
+                list.Add(new TeamUser
+                {
+                    Key = item,
+                    Display = item
+                });
+            }
+            var modelEdit = new Matches();
+            modelEdit.TeamsList = new SelectList(list, "Key", "Display");
+            modelEdit.MatchID = matches.MatchID;
+            modelEdit.RoundNo = matches.RoundNo;
+            modelEdit.Home_Team = matches.Home_Team;
+            modelEdit.Away_Team = matches.Away_Team;
+            modelEdit.HomePointsScored = matches.HomePointsScored;
+            modelEdit.AwayPointsScored = matches.AwayPointsScored;
+            modelEdit.HadExtraTime = matches.HadExtraTime;
+            modelEdit.EndOfFourthPeriodPoints = matches.EndOfFourthPeriodPoints;
+            return View(modelEdit);
         }
 
         // POST: MatchesAPI/Edit/5

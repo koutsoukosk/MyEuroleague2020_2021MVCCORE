@@ -14,16 +14,21 @@ namespace MyEuroleagueMVCAspNetCore.Models
         [Key]
         [Required]
         public int MatchID { get; set; }
+        [Required]
         [DisplayName("Round#")]
         public int RoundNo { get; set; }
+        [Required]
         [MaxLength(50)]
         [DisplayName("Home Team")]
         public string Home_Team { get; set; }
+        [Required]
         [MaxLength(50)]
         [DisplayName("Away Team")]
         public string Away_Team { get; set; }
+        [Required]
         [DisplayName("Home Points Scored")]
         public int HomePointsScored { get; set; }
+        [Required]
         [DisplayName("Away Points Scored")]
         public int AwayPointsScored { get; set; }
         [DisplayName("Had Extra Time")]
