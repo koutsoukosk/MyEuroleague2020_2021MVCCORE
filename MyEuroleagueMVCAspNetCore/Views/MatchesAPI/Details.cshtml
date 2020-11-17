@@ -54,7 +54,15 @@
         </dd>
     </dl>
 </div>
-<div>
+@*<div>
     <a asp-action="Edit" asp-route-id="@Model.MatchID">Edit</a> |
     <a asp-action="Index">Back to List</a>
+</div>*@
+<div class="row">
+    <div class="mx-2" style="width: 75px; ">
+        <a asp-action="Edit" asp-route-id="@Model.MatchID"><i class="fas fa-edit fa-2x"></i>Edit</a>
+    </div>
+    <div class="mx-2" style="width: 150px;">
+        <a asp-action="Index" class="btn btn-outline-primary" type="reset"> Back to List</a>
+    </div>
 </div>
