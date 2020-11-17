@@ -26,14 +26,14 @@ namespace MyEuroleagueMVCAspNetCore.Models
         [DisplayName("Away Team")]
         public string Away_Team { get; set; }
         [Required]
-        [DisplayName("Home Points Scored")]
+        [DisplayName("Home Points")]
         public int HomePointsScored { get; set; }
         [Required]
-        [DisplayName("Away Points Scored")]
+        [DisplayName("Away Points")]
         public int AwayPointsScored { get; set; }
-        [DisplayName("Had Extra Time")]
+        [DisplayName("Extra Time")]
         public Boolean HadExtraTime { get; set; }
-        [DisplayName("End Of Fourth Period Points")]
+        [DisplayName("Regular Period")]
         public int? EndOfFourthPeriodPoints { get; set; }
         [NotMapped]
         public SelectList TeamsList { get; set; }

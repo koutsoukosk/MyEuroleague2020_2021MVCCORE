@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyEuroleagueMVCAspNetCore.Models;
+using ReflectionIT.Mvc.Paging;
 
 namespace MyEuroleagueMVCAspNetCore.Controllers
 {
@@ -19,13 +20,16 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
         }
 
         // GET: MatchesAPI
-        public async Task<IActionResult> Index(int searchRound)
+        public async Task<IActionResult> Index(int searchRound, int page)
         {
-            var indexMatches = await _context.Match.ToListAsync();
-            if (searchRound>0) {
-                indexMatches = indexMatches.Where(x => x.RoundNo == searchRound).OrderBy(y=>y.MatchID).ToList();
+            var pageIndex = (page == 0) ? 1 : page;
+            var pageQuery = _context.Match.AsNoTracking().OrderBy(x => x.RoundNo);
+            if (searchRound >0)
+            {
+                pageQuery = pageQuery.Where(c => c.RoundNo == searchRound).OrderBy(x => x.RoundNo);
             }
-            return View(indexMatches);
+            var modelIndex = await PagingList.CreateAsync(pageQuery, _context.Team.Count()/2, pageIndex);
+            return View(modelIndex);
         }
 
         // GET: MatchesAPI/Details/5
