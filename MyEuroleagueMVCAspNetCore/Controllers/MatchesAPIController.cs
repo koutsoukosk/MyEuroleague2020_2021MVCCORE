@@ -64,6 +64,16 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
                 });
             }
             var model = new Matches();
+            var lastRoundNo = _context.Match.OrderByDescending(y => y.RoundNo).First().RoundNo;
+            var matchesLastRound = _context.Match.Where(x => x.RoundNo == lastRoundNo).Count();
+            if (matchesLastRound<_context.Team.Count() / 2)
+            {
+                model.RoundNo = lastRoundNo;
+            }
+            else
+            {
+                model.RoundNo = lastRoundNo + 1;
+            }           
             model.TeamsList = new SelectList(list, "Key", "Display");
             return View(model);
         }
