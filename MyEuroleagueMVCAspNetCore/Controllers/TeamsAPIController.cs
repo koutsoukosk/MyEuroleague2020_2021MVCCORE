@@ -58,7 +58,17 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(teams);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException.Message.Contains("IndexTeams"))
+                    {
+                        return View("UniqueTeams", teams);
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(teams);
@@ -97,7 +107,18 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
                 try
                 {
                     _context.Update(teams);
-                    await _context.SaveChangesAsync();
+                    try
+                    {
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex.InnerException.Message.Contains("IndexTeams"))
+                        {
+                            return View("UniqueTeams", teams);
+                        }
+                    }
+                   
                 }
                 catch (DbUpdateConcurrencyException)
                 {

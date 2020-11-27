@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -88,7 +89,17 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(matches);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception  ex)
+                {
+                    if (ex.InnerException.Message.Contains("IndexMatchRound")) {
+                        return View("UniqueMatchRound", matches);
+                    }
+                  
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(matches);
@@ -147,10 +158,21 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
                 try
                 {
                     _context.Update(matches);
-                    await _context.SaveChangesAsync();
+                    try
+                    {
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex.InnerException.Message.Contains("IndexMatchRound"))
+                        {
+                            return View("UniqueMatchRound", matches);
+                        }
+                    }
+                   
                 }
-                catch (DbUpdateConcurrencyException)
-                {
+                catch (DbUpdateConcurrencyException )
+                {             
                     if (!MatchesExists(matches.MatchID))
                     {
                         return NotFound();
