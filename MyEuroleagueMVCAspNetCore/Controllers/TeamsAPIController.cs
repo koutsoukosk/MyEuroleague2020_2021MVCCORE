@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +14,13 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
     public class TeamsAPIController : Controller
     {
         private readonly Euroleague2020_21ASPDBContext _context;
-
-        public TeamsAPIController(Euroleague2020_21ASPDBContext context)
+        private readonly IWebHostEnvironment _hostEnvironment;
+        private  string wwwRootPath ;
+        public TeamsAPIController(Euroleague2020_21ASPDBContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            this._hostEnvironment = hostEnvironment;
+            this.wwwRootPath = _hostEnvironment.WebRootPath;
         }
 
         // GET: TeamsAPI
@@ -53,11 +58,19 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TeamID,Name,Country,Coach")] Teams teams)
+        public async Task<IActionResult> Create([Bind("TeamID,Name,Country,Coach,ImageFileTeamLogo")] Teams teams)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(teams);
+                string fileName = Path.GetFileNameWithoutExtension(teams.ImageFileTeamLogo.FileName);
+                string extension = Path.GetExtension(teams.ImageFileTeamLogo.FileName);
+                teams.TeamLogoImageName = fileName + DateTime.Now.ToString("yyyymmddhhmmssfff") +extension;
+                string path = Path.Combine(this.wwwRootPath + "/Image/", teams.TeamLogoImageName);
+                using (var fileStream=new FileStream(path, FileMode.Create)) {
+                    await teams.ImageFileTeamLogo.CopyToAsync(fileStream);
+                }
+
+                    _context.Add(teams);
                 try
                 {
                     await _context.SaveChangesAsync();
@@ -83,6 +96,7 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
             }
 
             var teams = await _context.Team.FindAsync(id);
+           
             if (teams == null)
             {
                 return NotFound();
@@ -95,7 +109,7 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TeamID,Name,Country,Coach")] Teams teams)
+        public async Task<IActionResult> Edit(int id, [Bind("TeamID,Name,Country,Coach,ImageFileTeamLogo")] Teams teams)
         {
             if (id != teams.TeamID)
             {
@@ -106,6 +120,15 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
             {
                 try
                 {
+                    string fileName = Path.GetFileNameWithoutExtension(teams.ImageFileTeamLogo.FileName);
+                    string extension = Path.GetExtension(teams.ImageFileTeamLogo.FileName);
+                    teams.TeamLogoImageName = fileName + DateTime.Now.ToString("yyyymmddhhmmssfff") + extension;
+                    string path = Path.Combine(this.wwwRootPath + "/Image/", teams.TeamLogoImageName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await teams.ImageFileTeamLogo.CopyToAsync(fileStream);
+                    }              
+
                     _context.Update(teams);
                     try
                     {

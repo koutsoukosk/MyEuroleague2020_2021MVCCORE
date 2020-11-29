@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                Team Logo
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
@@ -21,12 +24,16 @@
             <th>
                 @Html.DisplayNameFor(model => model.Coach)
             </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                <img src="@("~/image/"+item.TeamLogoImageName)" asp-append-version="true" width="50px" height="50px">
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -36,11 +43,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Coach)
             </td>
-            @*<td>
-                <a asp-action="Edit" asp-route-id="@item.TeamID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TeamID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TeamID">Delete</a>
-            </td>*@
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.TeamID"><i class="fas fa-edit"></i> Edit </a>
                 <a asp-action="Details" asp-route-id="@item.TeamID"><i class="fas fa-info"></i> Details </a>
