@@ -1,12 +1,19 @@
 ﻿@model IEnumerable<MyEuroleagueMVCAspNetCore.Models.Standings>
 
 @{
-    ViewData["Title"] = "Overall Standings";
+    ViewData["Title"] = "Standings";
 }
 
-    <h2>Overall Standings</h2>
-
-
+<h2>Standings</h2>
+&nbsp;
+<form method="get" asp-action="GetOverallStandings">
+    <p>     
+                <input type="search" placeholder="Choose the Round Number" value="@ViewData["getStandings"]" name="searchByStandingRound" style="width:200px" />         
+                <input type="submit" value="Search by round" class="btn btn-primary" />           
+                <a asp-action="GetOverallStandings"> Get Οverall Standings</a>      
+    </p>
+</form>
+&nbsp;
 <table class="table">
     <thead>
         <tr>
@@ -17,13 +24,16 @@
                 Matches#
             </th>
             <th>
+                
+            </th>
+            <th>
                 Team
             </th>
             <th>
                 Wins
             </th>
             <th>
-                Loses 
+                Loses
             </th>
             <th>
                 Points+
@@ -32,10 +42,10 @@
                 Points-
             </th>
             <th>
-                Points Difference
+                Points +/-
             </th>
             <th>
-                Extra Time Matches#
+                Extra Time Matches
             </th>
         </tr>
     </thead>
@@ -48,6 +58,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MatchesNo)
+            </td>
+            <td>
+                <img src="@("~/image/"+item.TeamLogoImageName)" asp-append-version="true" width="50px" height="50px">
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TeamName)

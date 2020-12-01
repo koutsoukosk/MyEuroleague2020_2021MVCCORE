@@ -4,10 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - My Euroleague MVC Asp .Net Core</title>
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/font-awesome/css/fontawesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/font-awesome/css/all.min.css" />
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
     <header>
@@ -28,7 +31,7 @@
         </li>*@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="TeamsAPI" asp-action="Index">
-                                @*<i class="fas fa-basketball-ball"></i>*@ 
+                                @*<i class="fas fa-basketball-ball"></i>*@
                                 Teams
                             </a>
                         </li>
@@ -36,8 +39,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="MatchesAPI" asp-action="Index"> Matches </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="StandingsAPI" asp-action="GetOverallStandings"> Overall Standings </a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="StandingsAPI" asp-action="GetOverallStandings"> Standings </a>
                         </li>
+                       
                     </ul>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +13,9 @@ namespace MyEuroleagueMVCAspNetCore.Models
         public int PositionNo { get; set; }
         [DisplayName("Matches #")]
         public int MatchesNo { get; set; }
+        [DisplayName("Image Name")]
+        [NotMapped]
+        public string TeamLogoImageName { get; set; }
         [DisplayName("Team")]
         public string TeamName { get; set; }
         public int Wins { get; set; }

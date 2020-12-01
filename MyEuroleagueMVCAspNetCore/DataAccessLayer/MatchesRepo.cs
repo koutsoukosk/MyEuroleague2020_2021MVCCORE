@@ -91,43 +91,12 @@ namespace MyEuroleagueMVCAspNetCore.DataAccessLayer
                 });              
             }
             return teamsStandings;
-            //new Standings{ PositionNo =1,MatchesNo=0,TeamName= "Anadolu Efes Istanbul", Wins=0,Loses=0,PointsPlus=0,
-            //   PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //   new Standings{ PositionNo =2,MatchesNo=0,TeamName= "Real Madrid", Wins=0,Loses=0,PointsPlus=0,
-            //   PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //   new Standings{ PositionNo =3,MatchesNo=0,TeamName= "Barcelona", Wins=0,Loses=0,PointsPlus=0,
-            //   PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //   new Standings{ PositionNo =4,MatchesNo=0,TeamName= "CSKA Moscow", Wins=0,Loses=0,PointsPlus=0,
-            //   PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //   new Standings{ PositionNo =5,MatchesNo=0,TeamName= "Maccabi Tel Aviv", Wins=0,Loses=0,PointsPlus=0,
-            //   PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //   new Standings{ PositionNo =6,MatchesNo=0,TeamName= "Panathinaikos OPAP Athens", Wins=0,Loses=0,PointsPlus=0,
-            //   PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //   new Standings{ PositionNo =7,MatchesNo=0,TeamName= "Khimki Moscow", Wins=0,Loses=0,PointsPlus=0,
-            //   PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //   new Standings{ PositionNo =8,MatchesNo=0,TeamName= "Fenerbahce Beko Istanbul", Wins=0,Loses=0,PointsPlus=0,
-            //   PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //   new Standings{ PositionNo =9,MatchesNo=0,TeamName= "Zalgiris Kaunas", Wins=0,Loses=0,PointsPlus=0,
-            //   PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //   new Standings{ PositionNo =10,MatchesNo=0,TeamName= "Valencia Basket", Wins=0,Loses=0,PointsPlus=0,
-            //   PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //   new Standings{ PositionNo =11,MatchesNo=0,TeamName= "Olympiacos Piraeus", Wins=0,Loses=0,PointsPlus=0,
-            //   PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //   new Standings{ PositionNo =12,MatchesNo=0,TeamName= "AX Armani Exchange Milan", Wins=0,Loses=0,PointsPlus=0,
-            //   PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //   new Standings{ PositionNo =13,MatchesNo=0,TeamName= "TD Systems Baskonia Vitoria-Gasteiz", Wins=0,Loses=0,PointsPlus=0,
-            //   PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //   new Standings{ PositionNo =14,MatchesNo=0,TeamName= "Crvena Zvezda mts Belgrade", Wins=0,Loses=0,PointsPlus=0,
-            //   PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //   new Standings{ PositionNo =15,MatchesNo=0,TeamName= "LDLC ASVEL Villeurbanne", Wins=0,Loses=0,PointsPlus=0,
-            //   PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //new Standings{ PositionNo =16,MatchesNo=0,TeamName= "ALBA Berlin", Wins=0,Loses=0,PointsPlus=0,
-            //PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //new Standings{ PositionNo =17,MatchesNo=0,TeamName= "Bayern Munich", Wins=0,Loses=0,PointsPlus=0,
-            //PointsMinus=0,PointsDif=0,ExtraTimeMatches=0},
-            //new Standings{ PositionNo =18,MatchesNo=0,TeamName= "Zenit St Petersburg", Wins=0,Loses=0,PointsPlus=0,
-            //PointsMinus=0,PointsDif=0,ExtraTimeMatches=0}
+  
+        }
 
+        public string GetImageTeamName(string teamName)
+        {
+            return _context.Team.Where(x => x.Name == teamName).First().TeamLogoImageName;
         }
     }
 }

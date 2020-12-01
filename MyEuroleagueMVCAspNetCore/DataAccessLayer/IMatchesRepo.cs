@@ -13,5 +13,6 @@ namespace MyEuroleagueMVCAspNetCore.DataAccessLayer
         IEnumerable<Matches> GetMatchesBeUntilRoundId(int RoundId);
         List<Standings> teamsInStandings();
         Standings populateStanding(Standings teamsInStand, Matches matchItem, bool isHomeTeam);
+        String GetImageTeamName(string teamName);
     }
 }
