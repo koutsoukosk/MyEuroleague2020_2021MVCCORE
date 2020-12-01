@@ -16,14 +16,21 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-@using (Html.BeginForm("Index", "MatchesAPI", FormMethod.Post))
+@*@using (Html.BeginForm("Index", "MatchesAPI", FormMethod.Post))
 {
     <p></p>
     <div>
         Search by Round: @Html.TextBox("searchRound")
         <input id="Submit1" type="submit" value="Filter" />
     </div>
-}
+}*@
+<form method="get" asp-action="Index">
+    <p>
+        <input type="search" placeholder="Choose the Round Number" value="@ViewData["getMatches"]" name="searchRound" style="width:200px" />
+        <input type="submit" value="Search by round" class="btn btn-primary" />
+        <a asp-action="Index"> Get All Matches</a>
+    </p>
+</form>
 <p></p>
 <table class="table">
     <thead>
