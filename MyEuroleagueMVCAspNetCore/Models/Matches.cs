@@ -16,6 +16,7 @@ namespace MyEuroleagueMVCAspNetCore.Models
         public int MatchID { get; set; }
         [Required]
         [DisplayName("Round#")]
+        [Range(1, 34)]
         public int RoundNo { get; set; }
         [Required]
         [MaxLength(50)]
@@ -27,13 +28,16 @@ namespace MyEuroleagueMVCAspNetCore.Models
         public string Away_Team { get; set; }
         [Required]
         [DisplayName("Home Points")]
+        [Range(0, 500)]
         public int HomePointsScored { get; set; }
         [Required]
         [DisplayName("Away Points")]
+        [Range(0, 500)]
         public int AwayPointsScored { get; set; }
         [DisplayName("Extra Time")]
         public Boolean HadExtraTime { get; set; }
         [DisplayName("Regular Period")]
+        [Range(0, 500)]
         public int? EndOfFourthPeriodPoints { get; set; }
         [NotMapped]
         public SelectList TeamsList { get; set; }

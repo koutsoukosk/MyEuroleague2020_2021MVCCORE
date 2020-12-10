@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace MyEuroleagueMVCAspNetCore.DataAccessLayer
 {
-    public interface IMatchesRepo
+    public interface IStandingsRepo
     {
-        IEnumerable<Matches> GetAppMatches();
-        Matches GetMatchesByRoundId(int RoundId);
-        IEnumerable<Matches> GetMatchesBeUntilRoundId(int RoundId);
+        List<Standings> teamsInStandings();
+        Standings populateStanding(Standings teamsInStand, Matches matchItem, bool isHomeTeam);
+
     }
 }

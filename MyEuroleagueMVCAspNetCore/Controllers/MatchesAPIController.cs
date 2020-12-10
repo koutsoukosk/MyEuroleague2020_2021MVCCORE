@@ -24,7 +24,7 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
         public async Task<IActionResult> Index(int searchRound, int page)
         {
             var pageIndex = (page == 0) ? 1 : page;
-            var pageQuery = _context.Match.AsNoTracking().OrderBy(x => x.RoundNo);
+            var pageQuery = _context.Match.AsNoTracking().OrderByDescending(x => x.RoundNo);
             if (searchRound >0)
             {
                 pageQuery = pageQuery.Where(c => c.RoundNo == searchRound).OrderBy(x => x.RoundNo);

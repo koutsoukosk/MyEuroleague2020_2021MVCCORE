@@ -16,14 +16,6 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-@*@using (Html.BeginForm("Index", "MatchesAPI", FormMethod.Post))
-{
-    <p></p>
-    <div>
-        Search by Round: @Html.TextBox("searchRound")
-        <input id="Submit1" type="submit" value="Filter" />
-    </div>
-}*@
 <form method="get" asp-action="Index">
     <p>
         <input type="search" placeholder="Choose the Round Number" value="@ViewData["getMatches"]" name="searchRound" style="width:200px" />
@@ -98,7 +90,7 @@
         }
     </tbody>
 </table>
-
-<nav aria-label="Pagination Navigation">
+&nbsp;
+@*<nav aria-label="Pagination Navigation">
     <vc:pager paging-list="@Model" />
-</nav>
+</nav>*@

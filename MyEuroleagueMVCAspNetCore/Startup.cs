@@ -28,6 +28,8 @@ namespace MyEuroleagueMVCAspNetCore
         {
             services.AddDbContext<Euroleague2020_21ASPDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("EuroleagueDBConnStr")));
             services.AddScoped<IMatchesRepo, MatchesRepo>();
+            services.AddScoped<ITeamsRepo, TeamsRepo>();
+            services.AddScoped<IStandingsRepo, StandingsRepo>();
             services.AddControllersWithViews();
         }
 

@@ -12,10 +12,14 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
     [ApiController]
     public class StandingsAPIController : Controller
     {
-        private readonly IMatchesRepo _repository;
-        public StandingsAPIController(IMatchesRepo repository)
+        private readonly IStandingsRepo _repository;
+        private readonly IMatchesRepo _MatchesRepository;
+        private readonly ITeamsRepo _TeamsRepository;
+        public StandingsAPIController(IStandingsRepo repository, IMatchesRepo MatchesRepository, ITeamsRepo TeamsRepo)
         {
             _repository = repository;
+            _MatchesRepository = MatchesRepository;
+            _TeamsRepository = TeamsRepo;
         }
 
         //public async Task<IActionResult> Index()
@@ -32,7 +36,7 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
             List<Standings> standings = new List<Standings>();
             List<Standings> standingsDynamically = new List<Standings>();
             standingsDynamically.AddRange(_repository.teamsInStandings());            
-            var allMatches = _repository.GetAppMatches();
+            var allMatches = _MatchesRepository.GetAppMatches();
             return View(populateStandings(standingsDynamically, allMatches));                      
         }
 
@@ -51,10 +55,10 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
             standingsDynamically.AddRange(_repository.teamsInStandings());
             if (searchByStandingRound>0) {
 
-                var allMatchesUntilRoundID = _repository.GetMatchesBeUntilRoundId(searchByStandingRound);
+                var allMatchesUntilRoundID = _MatchesRepository.GetMatchesBeUntilRoundId(searchByStandingRound);
                 return View(populateStandings(standingsDynamically, allMatchesUntilRoundID));
             } else {
-                var allMatches = _repository.GetAppMatches();
+                var allMatches = _MatchesRepository.GetAppMatches();
                 return View(populateStandings(standingsDynamically, allMatches));
             }
         }
@@ -64,7 +68,7 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
         {
             List<Standings> standingsDynamically = new List<Standings>();
             standingsDynamically.AddRange(_repository.teamsInStandings());
-            var allMatchUntilRoundID = _repository.GetMatchesBeUntilRoundId(RoundId);
+            var allMatchUntilRoundID = _MatchesRepository.GetMatchesBeUntilRoundId(RoundId);
             return View(populateStandings(standingsDynamically, allMatchUntilRoundID));
         }
 
@@ -106,7 +110,7 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
             List<Standings> finalResults = new List<Standings>();
             foreach (var item in results)
             {
-                item.TeamLogoImageName = _repository.GetImageTeamName(item.TeamName);
+                item.TeamLogoImageName = _TeamsRepository.GetImageTeamName(item.TeamName);
                 item.PositionNo = positionCnt + 1;
                 positionCnt += 1;
             }
