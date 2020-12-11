@@ -26,7 +26,16 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
         // GET: TeamsAPI
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Team.ToListAsync());
+            var retTeams = await _context.Team.ToListAsync();
+            foreach (var item in retTeams)
+            {
+                item.ExistingPhotoPath = Path.Combine(this.wwwRootPath + "/Image/", item.TeamLogoImageName);
+                if (!System.IO.File.Exists(item.ExistingPhotoPath))
+                {
+                    item.TeamLogoImageName = "Euroleague_teams_2021.png";
+                }
+            }
+            return View(retTeams);
         }
 
         // GET: TeamsAPI/Details/5
@@ -101,6 +110,13 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
             {
                 return NotFound();
             }
+            teams.ExistingPhotoPath = Path.Combine(this.wwwRootPath + "/Image/", teams.TeamLogoImageName);
+            if (!System.IO.File.Exists(teams.ExistingPhotoPath))
+            {
+                teams.TeamLogoImageName = "Euroleague_teams_2021.png";
+            }
+
+
             return View(teams);
         }
 

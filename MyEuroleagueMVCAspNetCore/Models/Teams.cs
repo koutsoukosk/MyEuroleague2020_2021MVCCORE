@@ -26,5 +26,9 @@ namespace MyEuroleagueMVCAspNetCore.Models
         [NotMapped]
         [DisplayName("Upload Team Logo")]
         public IFormFile ImageFileTeamLogo { get; set; }
+        [MaxLength(100)]
+        [DisplayName("Existing Photo Path")]
+        [NotMapped]
+        public string ExistingPhotoPath { get; set; }
     }
 }
