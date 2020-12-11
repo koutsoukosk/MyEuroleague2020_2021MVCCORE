@@ -42,7 +42,7 @@
             <div class="form-group row col-sm-6 offset-3">
                 @if (!System.IO.File.Exists(Model.ExistingPhotoPath))
                 {
-                    <label>No selected Logo: </label>
+                    <label class="text-danger">No selected Logo: </label>
                 }
                 <img src="@("~/image/"+Model.TeamLogoImageName)" class="img-thumbnail" asp-append-version="true">
             </div>

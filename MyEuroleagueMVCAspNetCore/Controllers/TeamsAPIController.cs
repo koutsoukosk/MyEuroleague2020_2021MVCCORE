@@ -71,15 +71,9 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
         {
             if (ModelState.IsValid)
             {
-                string fileName = Path.GetFileNameWithoutExtension(teams.ImageFileTeamLogo.FileName);
-                string extension = Path.GetExtension(teams.ImageFileTeamLogo.FileName);
-                teams.TeamLogoImageName = fileName + DateTime.Now.ToString("yyyymmddhhmmssfff") +extension;
-                string path = Path.Combine(this.wwwRootPath + "/Image/", teams.TeamLogoImageName);
-                using (var fileStream=new FileStream(path, FileMode.Create)) {
-                    await teams.ImageFileTeamLogo.CopyToAsync(fileStream);
-                }
+                await UpdateLogos(teams);
 
-                    _context.Add(teams);
+                _context.Add(teams);
                 try
                 {
                     await _context.SaveChangesAsync();
@@ -136,14 +130,7 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
             {
                 try
                 {
-                    string fileName = Path.GetFileNameWithoutExtension(teams.ImageFileTeamLogo.FileName);
-                    string extension = Path.GetExtension(teams.ImageFileTeamLogo.FileName);
-                    teams.TeamLogoImageName = fileName + DateTime.Now.ToString("yyyymmddhhmmssfff") + extension;
-                    string path = Path.Combine(this.wwwRootPath + "/Image/", teams.TeamLogoImageName);
-                    using (var fileStream = new FileStream(path, FileMode.Create))
-                    {
-                        await teams.ImageFileTeamLogo.CopyToAsync(fileStream);
-                    }              
+                    await UpdateLogos(teams);
 
                     _context.Update(teams);
                     try
@@ -157,7 +144,7 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
                             return View("UniqueTeams", teams);
                         }
                     }
-                   
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -173,6 +160,18 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(teams);
+        }
+
+        private async Task UpdateLogos(Teams teams)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(teams.ImageFileTeamLogo.FileName);
+            string extension = Path.GetExtension(teams.ImageFileTeamLogo.FileName);
+            teams.TeamLogoImageName = fileName + DateTime.Now.ToString("yyyymmddhhmmssfff") + extension;
+            string path = Path.Combine(this.wwwRootPath + "/Image/", teams.TeamLogoImageName);
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                await teams.ImageFileTeamLogo.CopyToAsync(fileStream);
+            }
         }
 
         // GET: TeamsAPI/Delete/5
