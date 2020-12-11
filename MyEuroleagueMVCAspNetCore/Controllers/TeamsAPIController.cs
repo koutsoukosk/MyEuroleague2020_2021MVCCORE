@@ -29,13 +29,24 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
             var retTeams = await _context.Team.ToListAsync();
             foreach (var item in retTeams)
             {
+                ExistsTeamLogoName(item);
+
+            }
+            return View(retTeams);
+        }
+
+        private void ExistsTeamLogoName(Teams item)
+        {
+            if (item.TeamLogoImageName != null)
+            {
                 item.ExistingPhotoPath = Path.Combine(this.wwwRootPath + "/Image/", item.TeamLogoImageName);
                 if (!System.IO.File.Exists(item.ExistingPhotoPath))
                 {
                     item.TeamLogoImageName = "Euroleague_teams_2021.png";
                 }
+
             }
-            return View(retTeams);
+            else { item.TeamLogoImageName = "Euroleague_teams_2021.png"; }
         }
 
         // GET: TeamsAPI/Details/5
@@ -52,7 +63,7 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
             {
                 return NotFound();
             }
-
+            ExistsTeamLogoName(teams);
             return View(teams);
         }
 
@@ -71,7 +82,10 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
         {
             if (ModelState.IsValid)
             {
-                await UpdateLogos(teams);
+                if (teams.ImageFileTeamLogo != null && teams.TeamLogoImageName != null)
+                {
+                    await UpdateLogos(teams);
+                }
 
                 _context.Add(teams);
                 try
@@ -104,11 +118,7 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
             {
                 return NotFound();
             }
-            teams.ExistingPhotoPath = Path.Combine(this.wwwRootPath + "/Image/", teams.TeamLogoImageName);
-            if (!System.IO.File.Exists(teams.ExistingPhotoPath))
-            {
-                teams.TeamLogoImageName = "Euroleague_teams_2021.png";
-            }
+            ExistsTeamLogoName(teams);
 
 
             return View(teams);
@@ -130,7 +140,10 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
             {
                 try
                 {
-                    await UpdateLogos(teams);
+                    if (teams.ImageFileTeamLogo!=null && teams.TeamLogoImageName!=null) {
+                        await UpdateLogos(teams);
+                    }
+                    
 
                     _context.Update(teams);
                     try
@@ -188,7 +201,7 @@ namespace MyEuroleagueMVCAspNetCore.Controllers
             {
                 return NotFound();
             }
-
+            ExistsTeamLogoName(teams);
             return View(teams);
         }
 
